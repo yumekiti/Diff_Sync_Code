@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",  
-    "test": "jest --watch"
+    "test": "jest --watchAll"
   },
   "dependencies": {
     "next": "12.1.2",
