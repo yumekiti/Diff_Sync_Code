@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="http://nestjs.com/"><img src="./public/diffsync.png" width="160" alt="Logo" /></a>
+  <a href="http://nestjs.com/"><img src="./public/icon.png" width="180" alt="Logo" /></a>
 </p>
 
 # Diff_Sync_Code
