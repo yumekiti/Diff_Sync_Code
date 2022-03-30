@@ -1,9 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-
-.html {
-  font-family: 'Roboto';
-}
-
 .header {
   display: flex;
   align-items: center;
@@ -28,11 +22,4 @@
 .icon {
   margin-left: 10px;
   border-radius: 50%;
-}
-
-.footer {
-  display: flex;
-  justify-content: space-between;
-  height: 60px;
-  padding: 0 24px;
 }
