@@ -1,6 +1,6 @@
 import { Grid, Card, Text } from "@nextui-org/react";
 
-export default () => {
+const Explain = () => {
   return (
     <Grid.Container gap={2}>
       <Grid xs={12} justify="center">
@@ -13,3 +13,5 @@ export default () => {
     </Grid.Container>
   )
 }
+
+export default Explain
