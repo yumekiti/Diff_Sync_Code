@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  align-items: center;
+  background-color: #eee;
+  height: 60px;
+}
+
+.header h1 {
+  margin-top: 10px;
+  font-size: 3rem;
+  letter-spacing: 0.03em;
+}
+
+.sns {
+  display: flex;
+  position: absolute;
+  margin-top: 10px;
+  top: 0;
+  right: 0;
+}
+
+.icon {
+  margin-left: 10px;
+  border-radius: 50%;
+}
