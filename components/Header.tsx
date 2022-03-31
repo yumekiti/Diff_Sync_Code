@@ -18,12 +18,24 @@ const Header = () => {
       <ul className={styles.sns}>
         <li>
           <a href="https://twitter.com/yumekiti1204">
-            <img src="./twitter.png" alt="twitter" className={styles.icon} loading="lazy" width="42" height="42"></img>
+            <Image
+              src="./twitter.png"
+              alt="twitter"
+              className={styles.icon}
+              width={42}
+              height={42}
+            />
           </a>
         </li>
         <li>
           <a href="https://github.com/yumekiti/Diff_Sync_Code">
-            <img src="./github.png" alt="github" className={styles.icon} loading="lazy" width="42" height="42"></img>
+            <Image
+              src="./github.png"
+              alt="github"
+              className={styles.icon}
+              width={42}
+              height={42}
+            />
           </a>
         </li>
       </ul>
