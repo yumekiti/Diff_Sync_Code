@@ -1,13 +1,19 @@
 import { DiffEditor } from "@monaco-editor/react";
 
-const Diff = () => {
+type Props = {
+  rcode: string;
+  lcode: string;
+  lang: string;
+};
+
+const Diff = ({rcode, lcode, lang}: Props) => {
   return (
     <DiffEditor
       theme="vs-dark"
       height="30vh"
-      language="javascript"
-      original="// the original code"
-      modified="// the modified code"
+      language={lang}
+      original={rcode}
+      modified={lcode}
     />
   )
 }
