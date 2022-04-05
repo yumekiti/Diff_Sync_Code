@@ -1,33 +1,73 @@
 import type { NextPage } from 'next';
 import { Grid, Spacer } from '@nextui-org/react';
+import Editor from "@monaco-editor/react";
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Explain from '../components/Explain';
 import Diff from '../components/Diff';
-import Monaco from '../components/Monaco';
 import Language from '../components/Language';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import io from 'socket.io-client'
+let socket: any
 
 const Home: NextPage = () => {
-  const [lang, setLang] = useState('javascript')
-  const [rcode, setRcode] = useState('')
-  const [lcode, setLcode] = useState('')
+  const [values, setValues] = useState({
+    lang: 'javascript',
+    rcode: '',
+    lcode: '',
+  });
+
+  useEffect(() => {
+    fetch('/api/socket')
+    socket = io()
+
+    socket.on('connect', () => {
+      console.log('connected')
+    })
+
+    socket.on('update-input', (value: any) => {
+      setValues(value)
+    })
+  }, [])
+
+  const onChangeLang = (value: string) => {
+    setValues({...values, lang: value})
+    socket.emit('input-change', {...values, lang: value})
+  }
 
   return (
     <>
       <Header />
       <Grid.Container gap={3}>
         <Grid xs={12}>
-          <Language lang={lang} setLang={setLang} />
+          <Language lang={values.lang} onChangeLang={onChangeLang} />
         </Grid>
         <Grid xs={6}>
-          <Monaco lang={lang} text={rcode} setText={setRcode} />
+          <Editor
+            theme="vs-dark"
+            height="50vh"
+            language={values.lang}
+            value={values.lcode}
+            onChange={(value: any) => {
+              setValues({...values, lcode: value})
+              socket.emit('input-change', {...values, lcode: value})
+            }}
+          />
         </Grid>
         <Grid xs={6}>
-          <Monaco lang={lang} text={lcode} setText={setLcode} />
+          <Editor
+            theme="vs-dark"
+            height="50vh"
+            language={values.lang}
+            value={values.rcode}
+            onChange={(value: any) => {
+              setValues({...values, rcode: value})
+              socket.emit('input-change', {...values, rcode: value})
+            }}
+          />
         </Grid>
         <Grid xs={12}>
-          <Diff lang={lang} rcode={rcode} lcode={lcode} />
+          <Diff lang={values.lang} rcode={values.rcode} lcode={values.lcode} />
         </Grid>
         <Grid xs={6}>
           <Explain />

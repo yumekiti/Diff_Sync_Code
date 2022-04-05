@@ -12,8 +12,8 @@ const Diff = ({rcode, lcode, lang}: Props) => {
       theme="vs-dark"
       height="30vh"
       language={lang}
-      original={rcode}
-      modified={lcode}
+      original={lcode}
+      modified={rcode}
     />
   )
 }
