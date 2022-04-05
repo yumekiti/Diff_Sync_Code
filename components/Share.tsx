@@ -4,14 +4,14 @@ import {
   LineShareButton,
   LineIcon,
   TwitterShareButton,
-  TwitterIcon
+  TwitterIcon,
 } from 'react-share';
 import { Text, Card, Spacer, Button } from '@nextui-org/react';
-import style from '../styles/Share.module.css'
+import style from '../styles/Share.module.css';
 
 type Props = {
   url: string;
-  text: string
+  text: string;
 };
 
 const Share = ({ url, text }: Props) => {
@@ -23,18 +23,15 @@ const Share = ({ url, text }: Props) => {
         <Spacer />
 
         <div className={style.share}>
-          <Button
-            onClick={() =>  navigator.clipboard.writeText(url)}
-            rounded
-          >
+          <Button onClick={() => navigator.clipboard.writeText(url)} rounded>
             Link Copy
           </Button>
 
-          <LineShareButton url={url} >
+          <LineShareButton url={url}>
             <LineIcon size={60} round />
           </LineShareButton>
 
-          <TwitterShareButton title={text} url={url} >
+          <TwitterShareButton title={text} url={url}>
             <TwitterIcon size={60} round />
           </TwitterShareButton>
 

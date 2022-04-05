@@ -36,3 +36,8 @@ tests:
 .PHONY: test
 test:
 	$(dc) exec tests npm test
+
+.PHONY: check
+check:
+	yarn format
+	yarn lint
