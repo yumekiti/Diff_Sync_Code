@@ -5,7 +5,7 @@ const Header = () => {
   const returnTop = () => {
     window.scrollTo({
       top: 880,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   };
 
@@ -35,7 +35,14 @@ const Header = () => {
           </a>
         </li>
         <li>
-          <Image className={styles.icon} src='./question.png' alt="down" onClick={returnTop} width={42} height={42} />
+          <Image
+            className={styles.icon}
+            src='./question.png'
+            alt='down'
+            onClick={returnTop}
+            width={42}
+            height={42}
+          />
         </li>
       </ul>
     </div>
