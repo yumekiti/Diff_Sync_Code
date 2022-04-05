@@ -30,17 +30,15 @@ const Home: NextPage = () => {
     })
   }, [])
 
-  const onChangeLang = (value: string) => {
-    setValues({...values, lang: value})
-    socket.emit('input-change', {...values, lang: value})
-  }
-
   return (
     <>
       <Header />
       <Grid.Container gap={3}>
         <Grid xs={12}>
-          <Language lang={values.lang} onChangeLang={onChangeLang} />
+          <Language lang={values.lang} onChangeLang={(value: string) => {
+            setValues({...values, lang: value})
+            socket.emit('input-change', {...values, lang: value})
+          }} />
         </Grid>
         <Grid xs={6}>
           <Editor
