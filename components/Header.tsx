@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <div className={styles.header}>
-      <Spacer x={2} />
+      <Spacer x={1} />
       <div>
         <Image src='./icon.png' alt='Default Image' width={50} height={50} />
       </div>
