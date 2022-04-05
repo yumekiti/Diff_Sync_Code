@@ -6,13 +6,13 @@ class MyDocument extends Document {
     const initialProps = await Document.getInitialProps(ctx);
     return {
       ...initialProps,
-      styles: <>{initialProps.styles}</>
+      styles: <>{initialProps.styles}</>,
     };
   }
 
   render() {
     return (
-      <Html lang="ja">
+      <Html lang='ja'>
         <Head>{CssBaseline.flush()}</Head>
         <body>
           <Main />
