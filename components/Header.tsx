@@ -13,7 +13,7 @@ const Header = () => {
     <div className={styles.header}>
       <Spacer x={1} />
       <div>
-        <Image src='./icon.png' alt='Default Image' width={50} height={50} />
+        <Image src='./icon.png' alt='Default Image' width={42} height={42} />
       </div>
       <Spacer x={1} />
       <h1>Diff Sync Code</h1>

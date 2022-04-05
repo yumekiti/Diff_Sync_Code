@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import Explain from '../components/Explain';
 import Diff from '../components/Diff';
 import Language from '../components/Language';
+import Share from '../components/Share';
 import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 let socket: any;
@@ -72,6 +73,9 @@ const Home: NextPage = () => {
         </Grid>
         <Grid xs={6}>
           <Explain />
+        </Grid>
+        <Grid xs={6}>
+          <Share url={'https://google.com'} text={'hogee'}/>
         </Grid>
       </Grid.Container>
       <Footer />
