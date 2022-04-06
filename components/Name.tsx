@@ -6,7 +6,6 @@ type Props = {
   onChange: Function;
 };
 
-
 const Name = ({ name, onChange }: Props) => {
   return (
     <div className={style.name}>
