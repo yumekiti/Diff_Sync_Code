@@ -5,10 +5,10 @@ import style from '../styles/Language.module.css';
 
 type Props = {
   lang: string;
-  onChangeLang: any;
+  onChange: any;
 };
 
-const Language = ({ lang, onChangeLang }: Props) => {
+const Language = ({ lang, onChange }: Props) => {
   const [langs, setLangs] = useState<string[]>([]);
   const monaco = useMonaco();
 
@@ -27,7 +27,7 @@ const Language = ({ lang, onChangeLang }: Props) => {
       <select
         defaultValue={lang}
         onChange={(e) => {
-          onChangeLang(e.target.value);
+          onChange(e.target.value);
         }}
       >
         <option value={lang}>{lang}</option>
