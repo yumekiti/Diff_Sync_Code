@@ -13,13 +13,13 @@ const Name = ({ name, onChange, visible, onClick, names }: Props) => {
   return (
     <div className={style.body}>
       <Text size={18} className={style.name} >
-        Name : &nbsp;
+        Name :&nbsp;
         <Text size={20} h4 >{name ? name : 'no_name'}</Text>
       </Text>
 
       <Text size={18}>
         <div className={style.member}>
-          Member : &nbsp;
+          Member :&nbsp;
           {names.map((value) => {
             return (
               <Text size={20} h4 >{value},&nbsp;</Text>
