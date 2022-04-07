@@ -17,8 +17,11 @@ const Home: NextPage = () => {
     lang: 'javascript',
     rcode: '',
     lcode: '',
-    name: 'no_name',
   });
+  const [name, setName] = useState({
+    body: '',
+    visible: true
+  })
 
   useEffect(() => {
     fetch('/api/socket');
@@ -38,9 +41,14 @@ const Home: NextPage = () => {
       <Header />
       <Grid.Container gap={3}>
         <Grid xs={6}>
-          <Name name={values.name}
+          <Name
+            name={name.body}
             onChange={(value: string) => {
-              setValues({ ...values, name: value })
+              setName({ ...name, body: value })
+            }}
+            visible={name.visible}
+            setVisible={(value: boolean) => {
+              setName({ ...name, visible: value })
             }}
           />
         </Grid>
