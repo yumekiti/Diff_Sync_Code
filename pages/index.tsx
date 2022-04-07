@@ -44,13 +44,11 @@ const Home: NextPage = () => {
         <Grid xs={6}>
           <Name
             name={name.body}
-            onChange={(value: string) => {
-              setName({ ...name, body: value })
-            }}
             visible={name.visible}
             onClick={(value: string, visible: boolean) => {
               setName({ ...name, visible: visible })
-              setNames([...names, value])
+              setNames([ ...names, value ? value : 'no_name' ])
+              setName({ ...name, body: value ? value : 'no_name' })
             }}
             names={names}
           />
