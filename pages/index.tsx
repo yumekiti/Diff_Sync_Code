@@ -22,6 +22,7 @@ const Home: NextPage = () => {
     body: '',
     visible: true
   })
+  const [names, setNames] = useState<string[]>(['hoge', 'hoge'])
 
   useEffect(() => {
     fetch('/api/socket');
@@ -47,9 +48,11 @@ const Home: NextPage = () => {
               setName({ ...name, body: value })
             }}
             visible={name.visible}
-            setVisible={(value: boolean) => {
-              setName({ ...name, visible: value })
+            onClick={(value: string, visible: boolean) => {
+              setName({ ...name, visible: visible })
+              setNames([...names, value])
             }}
+            names={names}
           />
         </Grid>
         <Grid xs={6}>

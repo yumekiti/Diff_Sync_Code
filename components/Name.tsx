@@ -5,25 +5,33 @@ type Props = {
   name: string;
   onChange: Function;
   visible: boolean
-  setVisible: Function
+  onClick: Function
+  names: Array<string>
 };
 
-const Name = ({ name, onChange, visible, setVisible }: Props) => {
-  const closeHandler = () => {
-    setVisible(false);
-  };
-
+const Name = ({ name, onChange, visible, onClick, names }: Props) => {
   return (
     <div className={style.body}>
       <Text size={18} className={style.name} >
         Name : &nbsp;
-        <Text size={18} h4 >{name ? name : 'no_name'}</Text>
+        <Text size={20} h4 >{name ? name : 'no_name'}</Text>
       </Text>
+
+      <Text size={18}>
+        <div className={style.member}>
+          Member : &nbsp;
+          {names.map((value) => {
+            return (
+              <Text size={20} h4 >{value},&nbsp;</Text>
+            )
+          })}
+        </div>
+      </Text>
+
       <Modal
         preventClose
         blur
         open={visible}
-        onClose={closeHandler}
       >
         <Modal.Header>
           <Text size={18}>
@@ -47,14 +55,14 @@ const Name = ({ name, onChange, visible, setVisible }: Props) => {
             }}
             onKeyPress={(e) => {
               if (e.key == 'Enter') {
-                closeHandler()
+                onClick(name, false)
               }}
             }
           />
         </Modal.Body>
         <Modal.Footer>
           <Button auto
-            onClick={closeHandler}
+            onClick={() => onClick(name, false)}
           >
             Join
           </Button>
