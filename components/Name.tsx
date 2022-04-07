@@ -14,7 +14,7 @@ const Name = ({ name, onChange, visible, onClick, names }: Props) => {
     <div className={style.body}>
       <Text size={18} className={style.name} >
         Name :&nbsp;
-        <Text size={20} h4 >{name ? name : 'no_name'}</Text>
+        <Text size={18} h4 >{name ? name : 'no_name'}</Text>
       </Text>
 
       <Text size={18}>
@@ -22,7 +22,7 @@ const Name = ({ name, onChange, visible, onClick, names }: Props) => {
           Member :&nbsp;
           {names.map((value) => {
             return (
-              <Text size={20} h4 >{value}</Text>
+              <Text size={18} h4 >{value}</Text>
             )
           })}
         </div>
