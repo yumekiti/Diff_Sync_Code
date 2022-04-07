@@ -1,3 +1,4 @@
+import style from '../styles/Name.module.css';
 import { Modal, Text, Button, Input } from '@nextui-org/react';
 
 type Props = {
@@ -13,7 +14,11 @@ const Name = ({ name, onChange, visible, setVisible }: Props) => {
   };
 
   return (
-    <>
+    <div className={style.body}>
+      <Text size={18} className={style.name} >
+        Name : &nbsp;
+        <Text size={18} h4 >{name ? name : 'no_name'}</Text>
+      </Text>
       <Modal
         preventClose
         blur
@@ -40,15 +45,22 @@ const Name = ({ name, onChange, visible, setVisible }: Props) => {
             onChange={(e) => {
               onChange(e.target.value)
             }}
+            onKeyPress={(e) => {
+              if (e.key == 'Enter') {
+                closeHandler()
+              }}
+            }
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button auto onClick={closeHandler}>
-            Sign in
+          <Button auto
+            onClick={closeHandler}
+          >
+            Join
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   )
 }
 
