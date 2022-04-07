@@ -3,29 +3,28 @@ import { Modal, Text, Button, Input } from '@nextui-org/react';
 
 type Props = {
   name: string;
+  onChange: Function;
   visible: boolean
   onClick: Function
   names: Array<string>
 };
 
-const Name = ({ name, visible, onClick, names }: Props) => {
+const Name = ({ name, onChange, visible, onClick, names }: Props) => {
   return (
     <div className={style.body}>
-      <Text size={16} className={style.name} >
+      <Text className={style.name} >
         Name :&nbsp;
-        <Text size={16} h4 >{name}</Text>
+        <Text h4 >{name}</Text>
       </Text>
 
-      <Text size={16}>
-        <div className={style.member}>
-          Member :&nbsp;
-          {names.map((value) => {
-            return (
-              <Text size={16} h4 >{value}</Text>
-            )
-          })}
-        </div>
-      </Text>
+      <div className={style.member}>
+        <Text>Member :</Text>
+        {names.map((value) => {
+          return (
+            <Text h4 >{value}</Text>
+          )
+        })}
+      </div>
 
       <Modal
         preventClose
@@ -33,9 +32,9 @@ const Name = ({ name, visible, onClick, names }: Props) => {
         open={visible}
       >
         <Modal.Header>
-          <Text size={16}>
+          <Text>
             Welcome&nbsp;to&nbsp;
-            <Text b size={16}>
+            <Text b>
               Diff_Sync_Code
             </Text>
           </Text>
@@ -49,6 +48,9 @@ const Name = ({ name, visible, onClick, names }: Props) => {
             size="lg"
             placeholder="Your Name"
             value={name}
+            onChange={(e) => {
+              onChange(e.target.value)
+            }}
             onKeyPress={(e) => {
               if (e.key == 'Enter') {
                 onClick(name, false)
