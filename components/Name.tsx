@@ -22,7 +22,7 @@ const Name = ({ name, onChange, visible, onClick, names }: Props) => {
           Member :&nbsp;
           {names.map((value) => {
             return (
-              <Text size={20} h4 >{value},&nbsp;</Text>
+              <Text size={20} h4 >{value}</Text>
             )
           })}
         </div>
