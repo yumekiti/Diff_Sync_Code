@@ -19,7 +19,7 @@ const Home: NextPage = () => {
     lang: 'javascript',
     rcode: '',
     lcode: '',
-    token: token
+    token: token,
   });
   const [timerId, setTimerId] = useState<any>(null);
   const [update, setUpdate] = useState<boolean>(true);
@@ -43,10 +43,10 @@ const Home: NextPage = () => {
     });
 
     socket.on('update', async (value: any) => {
-      if(value.token === token){
-        await setUpdate(false)
+      if (value.token === token) {
+        await setUpdate(false);
         await setValues(value);
-        await setUpdate(true)
+        await setUpdate(true);
       }
     });
   }, []);
@@ -72,11 +72,11 @@ const Home: NextPage = () => {
             value={values.lcode}
             onChange={(value: any) => {
               setValues({ ...values, lcode: value });
-              if(update){
+              if (update) {
                 debounce(() => {
                   socket.emit('change', { ...values, lcode: value });
                   console.log('event');
-                })()
+                })();
               }
             }}
           />
@@ -89,10 +89,10 @@ const Home: NextPage = () => {
             value={values.rcode}
             onChange={(value: any) => {
               setValues({ ...values, rcode: value });
-              if(update){
+              if (update) {
                 debounce(() => {
                   socket.emit('change', { ...values, rcode: value });
-                })()
+                })();
               }
             }}
           />
@@ -104,7 +104,10 @@ const Home: NextPage = () => {
           <Explain />
         </Grid>
         <Grid xs={6}>
-          <Share url={'https://diff-sync-code.up.railway.app/' + token} text={'コード比較しませんか？'} />
+          <Share
+            url={'https://diff-sync-code.up.railway.app/' + token}
+            text={'コード比較しませんか？'}
+          />
         </Grid>
       </Grid.Container>
       <Footer />
