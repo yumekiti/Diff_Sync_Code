@@ -8,7 +8,6 @@ import Explain from '../components/Explain';
 import Diff from '../components/Diff';
 import Language from '../components/Language';
 import Share from '../components/Share';
-import Name from '../components/Name';
 import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 let socket: any;
@@ -22,11 +21,6 @@ const Home: NextPage = () => {
     lcode: '',
     token: token
   });
-  const [name, setName] = useState({
-    body: '',
-    visible: true
-  })
-  const [names, setNames] = useState<string[]>(['hoge', 'hoge'])
   const [timerId, setTimerId] = useState<any>(null);
   const [update, setUpdate] = useState<boolean>(true);
 
@@ -61,21 +55,7 @@ const Home: NextPage = () => {
     <>
       <Header />
       <Grid.Container gap={3}>
-        <Grid xs={6}>
-          <Name
-            name={name.body}
-            onChange={(value: string) => {
-              setName({ ...name, body: value })
-            }}
-            visible={name.visible}
-            onClick={(value: string, visible: boolean) => {
-              setName({ ...name, visible: visible, body: value ? value : 'no_name' })
-              setNames([ ...names, value ? value : 'no_name' ])
-            }}
-            names={names}
-          />
-        </Grid>
-        <Grid xs={6}>
+        <Grid xs={12}>
           <Language
             lang={values.lang}
             onChange={(value: string) => {
