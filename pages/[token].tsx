@@ -104,7 +104,7 @@ const Home: NextPage = () => {
           <Explain />
         </Grid>
         <Grid xs={6}>
-          <Share url={'https://google.com'} text={'hogee'} />
+          <Share url={'https://diff-sync-code.up.railway.app/' + token} text={'コード比較しませんか？'} />
         </Grid>
       </Grid.Container>
       <Footer />
