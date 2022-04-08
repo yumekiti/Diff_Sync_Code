@@ -43,7 +43,7 @@ const Home: NextPage = () => {
     });
 
     socket.on('update', async (value: any) => {
-      if (value.token === token) {
+      if (value.token == token) {
         await setUpdate(false);
         await setValues(value);
         await setUpdate(true);
