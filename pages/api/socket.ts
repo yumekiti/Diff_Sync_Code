@@ -9,8 +9,8 @@ const SocketHandler = (req: any, res: any) => {
     res.socket.server.io = io;
 
     io.on('connection', (socket) => {
-      socket.on('input-change', (value) => {
-        socket.broadcast.emit('update-input', value);
+      socket.on('change', (value) => {
+        socket.broadcast.emit('update', value);
       });
     });
   }
