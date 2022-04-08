@@ -17,8 +17,24 @@ const Home: NextPage = () => {
     lang: 'javascript',
     rcode: '',
     lcode: '',
-    name: 'no_name',
   });
+  const [name, setName] = useState({
+    body: '',
+    visible: true
+  })
+  const [names, setNames] = useState<string[]>(['hoge', 'hoge'])
+  const [timerId, setTimerId] = useState<any>(null);
+  const [update, setUpdate] = useState<boolean>(true);
+
+  const debounce = (fn: Function, bufferInterval = 3000) => {
+    return () => {
+      clearTimeout(timerId);
+      let timer = setTimeout(() => {
+        fn();
+      }, bufferInterval);
+      setTimerId(timer);
+    };
+  };
 
   useEffect(() => {
     fetch('/api/socket');
@@ -28,8 +44,10 @@ const Home: NextPage = () => {
       console.log('connected');
     });
 
-    socket.on('update-input', (value: any) => {
-      setValues(value);
+    socket.on('update-input', async (value: any) => {
+      await setUpdate(false)
+      await setValues(value);
+      await setUpdate(true)
     });
   }, []);
 
@@ -38,10 +56,17 @@ const Home: NextPage = () => {
       <Header />
       <Grid.Container gap={3}>
         <Grid xs={6}>
-          <Name name={values.name}
+          <Name
+            name={name.body}
             onChange={(value: string) => {
-              setValues({ ...values, name: value })
+              setName({ ...name, body: value })
             }}
+            visible={name.visible}
+            onClick={(value: string, visible: boolean) => {
+              setName({ ...name, visible: visible, body: value ? value : 'no_name' })
+              setNames([ ...names, value ? value : 'no_name' ])
+            }}
+            names={names}
           />
         </Grid>
         <Grid xs={6}>
@@ -61,7 +86,12 @@ const Home: NextPage = () => {
             value={values.lcode}
             onChange={(value: any) => {
               setValues({ ...values, lcode: value });
-              socket.emit('input-change', { ...values, lcode: value });
+              if(update){
+                debounce(() => {
+                  socket.emit('input-change', { ...values, lcode: value });
+                  console.log('event');
+                })()
+              }
             }}
           />
         </Grid>
@@ -73,7 +103,11 @@ const Home: NextPage = () => {
             value={values.rcode}
             onChange={(value: any) => {
               setValues({ ...values, rcode: value });
-              socket.emit('input-change', { ...values, rcode: value });
+              if(update){
+                debounce(() => {
+                  socket.emit('input-change', { ...values, rcode: value });
+                })()
+              }
             }}
           />
         </Grid>
