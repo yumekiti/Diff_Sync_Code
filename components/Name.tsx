@@ -12,16 +12,18 @@ type Props = {
 const Name = ({ name, onChange, visible, onClick, names }: Props) => {
   return (
     <div className={style.body}>
-      <Text className={style.name} >
-        Name :&nbsp;
+      <div className={style.name}>
+        <Text >
+          Name :&nbsp;
+        </Text>
         <Text h4 >{name}</Text>
-      </Text>
+      </div>
 
       <div className={style.member}>
         <Text>Member :</Text>
-        {names.map((value) => {
+        {names.map((value, index) => {
           return (
-            <Text h4 >{value}</Text>
+            <Text h4 key={index} >{value}</Text>
           )
         })}
       </div>
