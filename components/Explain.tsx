@@ -11,6 +11,7 @@ const Explain = () => {
       </Text>
       <Text size={1}>まぁ、構文エラーか知らんけど。</Text>
       <Text>リンクを共有したら共同編集もできるようになるよ。</Text>
+      <Text>※情報漏れは対応しません。</Text>
     </Card>
   );
 };
