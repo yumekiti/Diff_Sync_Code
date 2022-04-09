@@ -40,13 +40,8 @@ class MyDocument extends Document {
           {/* ツイッタ */}
           <meta name='twitter:card' content='summary_large_image' />
           <meta name='twitter:site' content='@yumekiti1204' />
-          <meta name='twitter:title' content='Diff_Sync_Code' />
-          <meta
-            name='twitter:description'
-            content='MonacoEditorのDiffEditorを使ってコードを比較しエラーを探すことのできるアプリです'
-          />
-          <meta name='twitter:image' content='./icon.png' />
 
+          {/* favicon */}
           <link rel='apple-touch-icon' sizes='180x180' href='./favicon.ico' />
           <link rel='icon' type='image/png' sizes='32x32' href='./favicon.ico' />
           <link rel='icon' type='image/png' sizes='16x16' href='./favicon.ico' />
