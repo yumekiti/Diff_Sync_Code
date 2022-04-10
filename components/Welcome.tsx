@@ -23,7 +23,7 @@ const Welcome = ({ visible, onClick }: Props) => {
           </Text>
         </Modal.Body>
         <Modal.Footer>
-          <Button auto flat color="error" onClick={() => onClick(false)}>
+          <Button auto flat color="error" onClick={() => onClick()}>
             拒否
           </Button>
           <Button auto onClick={() => onClick(true)}>

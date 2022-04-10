@@ -25,7 +25,7 @@ const Home: NextPage = () => {
   });
   const [timerId, setTimerId] = useState<any>(null);
   const [update, setUpdate] = useState<boolean>(true);
-  const [visible, setVisible] = useState<boolean>(true);
+  const [visible, setVisible] = useState<boolean>(false);
 
   const debounce = (fn: Function, bufferInterval = 2000) => {
     return () => {
@@ -37,30 +37,29 @@ const Home: NextPage = () => {
     };
   };
 
-  const editorLock = async (set: void) => {
-    await setUpdate(false);
-    await set;
-    await setUpdate(true);
-  }
-
   useEffect(() => {
     fetch('/api/socket');
     socket = io();
 
     socket.on('connect', () => {
       console.log('connected');
+      setUpdate(false);
+      socket.emit('join', token);
     });
 
     socket.on('update', (value: any) => {
       if (value.token == token) {
-        editorLock(setValues(value))
+        setUpdate(false);
+        setValues(value)
+        setUpdate(true);
       }
     });
 
     socket.on('welcome', (value: any) => {
-      if (value.token == token){
+      if (value == token && update){
         setVisible(true)
       }
+      setUpdate(true);
     })
   }, []);
 
@@ -70,7 +69,10 @@ const Home: NextPage = () => {
       <Grid.Container gap={3}>
         <Welcome
           visible={visible}
-          onClick={() => {
+          onClick={(bool? :boolean) => {
+            if(bool){
+              socket.emit('change', values);
+            }
             setVisible(false)
           }}
         />

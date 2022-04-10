@@ -12,6 +12,10 @@ const SocketHandler = (req: any, res: any) => {
       socket.on('change', (value) => {
         socket.broadcast.emit('update', value);
       });
+
+      socket.on('join', (value) => {
+        socket.broadcast.emit('welcome', value);
+      });
     });
   }
   res.end();
