@@ -17,11 +17,11 @@ let socket: any;
 const Home: NextPage = () => {
   const router = useRouter();
   const { token } = router.query;
-  const [values, setValues] = useState({
+  const [values, setValues] = useState<any>({
     lang: 'javascript',
     rcode: '',
     lcode: '',
-    token: token,
+    token: '',
   });
   const [timerId, setTimerId] = useState<any>(null);
   const [update, setUpdate] = useState<boolean>(true);
@@ -38,30 +38,33 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    fetch('/api/socket');
-    socket = io();
-
-    socket.on('connect', () => {
-      console.log('connected');
-      setUpdate(false);
-      socket.emit('join', token);
-    });
-
-    socket.on('update', (value: any) => {
-      if (value.token == token) {
+    if (token){
+      setValues({ ...values, token: token })
+      fetch('/api/socket');
+      socket = io();
+  
+      socket.on('connect', () => {
+        console.log('connected');
         setUpdate(false);
-        setValues(value);
+        socket.emit('join', token);
+      });
+  
+      socket.on('update', (value: any) => {
+        if (value.token == token) {
+          setUpdate(false);
+          setValues(value);
+          setUpdate(true);
+        }
+      });
+  
+      socket.on('welcome', (value: any) => {
+        if (value == token) {
+          setVisible(true);
+        }
         setUpdate(true);
-      }
-    });
-
-    socket.on('welcome', (value: any) => {
-      if (value == token && update) {
-        setVisible(true);
-      }
-      setUpdate(true);
-    });
-  }, []);
+      });
+    }
+  }, [token]);
 
   return (
     <>
@@ -72,7 +75,9 @@ const Home: NextPage = () => {
           onClick={(bool?: boolean) => {
             if (bool) {
               socket.emit('change', values);
-            }
+            } else [
+              router.push('/')
+            ]
             setVisible(false);
           }}
         />
