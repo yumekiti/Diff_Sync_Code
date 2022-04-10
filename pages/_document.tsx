@@ -16,7 +16,6 @@ class MyDocument extends Document {
         <Head>
           {CssBaseline.flush()}
 
-          <title>Diff_Sync_Code</title>
           <meta
             name='description'
             content='コードを比較し差分(diff)を確認することで構文エラーを探すことのできるアプリです。リンクの共有で共同編集も可能なのでコードを相手に送る手間も省けます。'
