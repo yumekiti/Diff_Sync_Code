@@ -1,6 +1,9 @@
-import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import io from 'socket.io-client';
 import { Grid } from '@nextui-org/react';
+
 import Editor from '@monaco-editor/react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -8,8 +11,7 @@ import Explain from '../components/Explain';
 import Diff from '../components/Diff';
 import Language from '../components/Language';
 import Share from '../components/Share';
-import { useEffect, useState } from 'react';
-import io from 'socket.io-client';
+import Welcome from '../components/Welcome';
 let socket: any;
 
 const Home: NextPage = () => {
@@ -23,6 +25,7 @@ const Home: NextPage = () => {
   });
   const [timerId, setTimerId] = useState<any>(null);
   const [update, setUpdate] = useState<boolean>(true);
+  const [visible, setVisible] = useState<boolean>(false);
 
   const debounce = (fn: Function, bufferInterval = 2000) => {
     return () => {
@@ -40,14 +43,23 @@ const Home: NextPage = () => {
 
     socket.on('connect', () => {
       console.log('connected');
+      setUpdate(false);
+      socket.emit('join', token);
     });
 
-    socket.on('update', async (value: any) => {
+    socket.on('update', (value: any) => {
       if (value.token == token) {
-        await setUpdate(false);
-        await setValues(value);
-        await setUpdate(true);
+        setUpdate(false);
+        setValues(value);
+        setUpdate(true);
       }
+    });
+
+    socket.on('welcome', (value: any) => {
+      if (value == token && update) {
+        setVisible(true);
+      }
+      setUpdate(true);
     });
   }, []);
 
@@ -55,6 +67,15 @@ const Home: NextPage = () => {
     <>
       <Header />
       <Grid.Container gap={3}>
+        <Welcome
+          visible={visible}
+          onClick={(bool?: boolean) => {
+            if (bool) {
+              socket.emit('change', values);
+            }
+            setVisible(false);
+          }}
+        />
         <Grid xs={12}>
           <Language
             lang={values.lang}
@@ -64,7 +85,7 @@ const Home: NextPage = () => {
             }}
           />
         </Grid>
-        <Grid xs={6}>
+        <Grid xs={12} sm={6}>
           <Editor
             theme='vs-dark'
             height='50vh'
@@ -81,7 +102,7 @@ const Home: NextPage = () => {
             }}
           />
         </Grid>
-        <Grid xs={6}>
+        <Grid xs={12} sm={6}>
           <Editor
             theme='vs-dark'
             height='50vh'
@@ -100,10 +121,10 @@ const Home: NextPage = () => {
         <Grid xs={12}>
           <Diff lang={values.lang} rcode={values.rcode} lcode={values.lcode} />
         </Grid>
-        <Grid xs={6}>
+        <Grid xs={12} sm={6}>
           <Explain />
         </Grid>
-        <Grid xs={6}>
+        <Grid xs={12} sm={6}>
           <Share
             url={'https://diff-sync-code.up.railway.app/' + token}
             text={'コード比較しませんか？'}
