@@ -35,10 +35,10 @@ class MyDocument extends Document {
           <meta property='og:site_name' content='Diff_Sync_Code' />
 
           {/* ビューポート */}
-          <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+          <meta name="viewport" content="width=device-width,initial-scale=1" />
 
           {/* ツイッタ */}
-          <meta name='twitter:card' content='summary_large_image' />
+          <meta name='twitter:card' content='summary' />
           <meta name='twitter:site' content='@yumekiti1204' />
 
           {/* favicon */}
