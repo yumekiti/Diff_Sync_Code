@@ -1,6 +1,9 @@
-import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { Grid } from '@nextui-org/react';
+import { useEffect, useState } from 'react';
+import io from 'socket.io-client';
+
 import Editor from '@monaco-editor/react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -8,8 +11,6 @@ import Explain from '../components/Explain';
 import Diff from '../components/Diff';
 import Language from '../components/Language';
 import Share from '../components/Share';
-import { useEffect, useState } from 'react';
-import io from 'socket.io-client';
 let socket: any;
 
 const Home: NextPage = () => {
@@ -34,6 +35,12 @@ const Home: NextPage = () => {
     };
   };
 
+  const editorLock = async (set: void) => {
+    await setUpdate(false);
+    await set;
+    await setUpdate(true);
+  }
+
   useEffect(() => {
     fetch('/api/socket');
     socket = io();
@@ -42,11 +49,9 @@ const Home: NextPage = () => {
       console.log('connected');
     });
 
-    socket.on('update', async (value: any) => {
+    socket.on('update', (value: any) => {
       if (value.token == token) {
-        await setUpdate(false);
-        await setValues(value);
-        await setUpdate(true);
+        editorLock(setValues(value))
       }
     });
   }, []);
@@ -64,7 +69,7 @@ const Home: NextPage = () => {
             }}
           />
         </Grid>
-        <Grid xs={6}>
+        <Grid xs={12} sm={6}>
           <Editor
             theme='vs-dark'
             height='50vh'
@@ -81,7 +86,7 @@ const Home: NextPage = () => {
             }}
           />
         </Grid>
-        <Grid xs={6}>
+        <Grid xs={12} sm={6}>
           <Editor
             theme='vs-dark'
             height='50vh'
@@ -100,10 +105,10 @@ const Home: NextPage = () => {
         <Grid xs={12}>
           <Diff lang={values.lang} rcode={values.rcode} lcode={values.lcode} />
         </Grid>
-        <Grid xs={6}>
+        <Grid xs={12} sm={6}>
           <Explain />
         </Grid>
-        <Grid xs={6}>
+        <Grid xs={12} sm={6}>
           <Share
             url={'https://diff-sync-code.up.railway.app/' + token}
             text={'コード比較しませんか？'}

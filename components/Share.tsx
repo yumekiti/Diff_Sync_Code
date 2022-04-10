@@ -23,7 +23,7 @@ const Share = ({ url, text }: Props) => {
         <Spacer />
 
         <div className={style.share}>
-          <Button onClick={() => navigator.clipboard.writeText(url)} rounded>
+          <Button className={style.button} onClick={() => navigator.clipboard.writeText(url)} rounded>
             Link Copy
           </Button>
 

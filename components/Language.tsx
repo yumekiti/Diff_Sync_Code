@@ -21,7 +21,7 @@ const Language = ({ lang, onChange }: Props) => {
   }, [monaco]);
 
   return (
-    <div className={style.language}>
+    <div className={style.body}>
       <Text>Language</Text>
       <Spacer x={1} />
       <select

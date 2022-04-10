@@ -10,7 +10,7 @@ const Header = () => {
   };
 
   return (
-    <div className={styles.header}>
+    <div className={styles.body}>
       <Spacer x={1} />
       <div>
         <Image src='./icon.png' alt='Default Image' width={42} height={42} />
