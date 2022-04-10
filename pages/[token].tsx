@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Grid } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
+import { Grid } from '@nextui-org/react';
 
 import Editor from '@monaco-editor/react';
 import Header from '../components/Header';
@@ -11,6 +11,7 @@ import Explain from '../components/Explain';
 import Diff from '../components/Diff';
 import Language from '../components/Language';
 import Share from '../components/Share';
+import Welcome from '../components/Welcome';
 let socket: any;
 
 const Home: NextPage = () => {
@@ -24,6 +25,7 @@ const Home: NextPage = () => {
   });
   const [timerId, setTimerId] = useState<any>(null);
   const [update, setUpdate] = useState<boolean>(true);
+  const [visible, setVisible] = useState<boolean>(true);
 
   const debounce = (fn: Function, bufferInterval = 2000) => {
     return () => {
@@ -54,12 +56,24 @@ const Home: NextPage = () => {
         editorLock(setValues(value))
       }
     });
+
+    socket.on('welcome', (value: any) => {
+      if (value.token == token){
+        setVisible(true)
+      }
+    })
   }, []);
 
   return (
     <>
-      <Header />
+    <Header />
       <Grid.Container gap={3}>
+        <Welcome
+          visible={visible}
+          onClick={() => {
+            setVisible(false)
+          }}
+        />
         <Grid xs={12}>
           <Language
             lang={values.lang}
