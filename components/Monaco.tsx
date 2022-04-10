@@ -6,7 +6,7 @@ type Props = {
   onChange: Function;
 };
 
-const Monaco = ({language, value, onChange}: Props) => {
+const Monaco = ({ language, value, onChange }: Props) => {
   return (
     <Editor
       theme='vs-dark'
@@ -14,10 +14,10 @@ const Monaco = ({language, value, onChange}: Props) => {
       language={language}
       value={value}
       onChange={(value: any) => {
-        onChange(value)
+        onChange(value);
       }}
     />
-  )
-}
+  );
+};
 
-export default Monaco
+export default Monaco;

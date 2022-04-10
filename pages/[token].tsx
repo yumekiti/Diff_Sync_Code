@@ -50,30 +50,30 @@ const Home: NextPage = () => {
     socket.on('update', (value: any) => {
       if (value.token == token) {
         setUpdate(false);
-        setValues(value)
+        setValues(value);
         setUpdate(true);
       }
     });
 
     socket.on('welcome', (value: any) => {
-      if (value == token && update){
-        setVisible(true)
+      if (value == token && update) {
+        setVisible(true);
       }
       setUpdate(true);
-    })
+    });
   }, []);
 
   return (
     <>
-    <Header />
+      <Header />
       <Grid.Container gap={3}>
         <Welcome
           visible={visible}
-          onClick={(bool? :boolean) => {
-            if(bool){
+          onClick={(bool?: boolean) => {
+            if (bool) {
               socket.emit('change', values);
             }
-            setVisible(false)
+            setVisible(false);
           }}
         />
         <Grid xs={12}>
