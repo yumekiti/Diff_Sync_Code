@@ -35,11 +35,11 @@ const Share = ({ url, text }: Props) => {
             <LineIcon size={60} round />
           </LineShareButton>
 
-          <TwitterShareButton title={text} url={url}>
+          <TwitterShareButton title={text + '\n'} url={url}>
             <TwitterIcon size={60} round />
           </TwitterShareButton>
 
-          <FacebookShareButton quote={text} url={url}>
+          <FacebookShareButton quote={text + '\n'} url={url}>
             <FacebookIcon size={60} round />
           </FacebookShareButton>
         </div>

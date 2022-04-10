@@ -73,11 +73,8 @@ const Home: NextPage = () => {
         <Welcome
           visible={visible}
           onClick={(bool?: boolean) => {
-            if (bool) {
-              socket.emit('change', values);
-            } else [
-              router.push('/')
-            ]
+            if (bool) socket.emit('change', values);
+            else router.push('/')
             setVisible(false);
           }}
         />
