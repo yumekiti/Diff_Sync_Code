@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import { Grid } from '@nextui-org/react';
+import Head from 'next/head';
 
 import Editor from '@monaco-editor/react';
 import Header from '../components/Header';
@@ -38,17 +39,17 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    if (token){
-      setValues({ ...values, token: token })
+    if (token) {
+      setValues((values: object) => ({ ...values, token: token }));
       fetch('/api/socket');
       socket = io();
-  
+
       socket.on('connect', () => {
         console.log('connected');
         setUpdate(false);
         socket.emit('join', token);
       });
-  
+
       socket.on('update', (value: any) => {
         if (value.token == token) {
           setUpdate(false);
@@ -56,7 +57,7 @@ const Home: NextPage = () => {
           setUpdate(true);
         }
       });
-  
+
       socket.on('welcome', (value: any) => {
         if (value == token) {
           setVisible(true);
@@ -68,13 +69,16 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Diff_Sync_Code</title>
+      </Head>
       <Header />
       <Grid.Container gap={3}>
         <Welcome
           visible={visible}
           onClick={(bool?: boolean) => {
             if (bool) socket.emit('change', values);
-            else router.push('/')
+            else router.push('/');
             setVisible(false);
           }}
         />
@@ -82,7 +86,7 @@ const Home: NextPage = () => {
           <Language
             lang={values.lang}
             onChange={(value: string) => {
-              setValues({ ...values, lang: value });
+              setValues((values: object) => ({ ...values, lang: value }));
               socket.emit('change', { ...values, lang: value });
             }}
           />
@@ -94,7 +98,7 @@ const Home: NextPage = () => {
             language={values.lang}
             value={values.lcode}
             onChange={(value: any) => {
-              setValues({ ...values, lcode: value });
+              setValues((values: object) => ({ ...values, lcode: value }));
               if (update) {
                 debounce(() => {
                   socket.emit('change', { ...values, lcode: value });
@@ -111,7 +115,7 @@ const Home: NextPage = () => {
             language={values.lang}
             value={values.rcode}
             onChange={(value: any) => {
-              setValues({ ...values, rcode: value });
+              setValues((values: object) => ({ ...values, rcode: value }));
               if (update) {
                 debounce(() => {
                   socket.emit('change', { ...values, rcode: value });
