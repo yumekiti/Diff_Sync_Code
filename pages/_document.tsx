@@ -19,12 +19,12 @@ class MyDocument extends Document {
           <title>Diff_Sync_Code</title>
           <meta
             name='description'
-            content='MonacoEditorのDiffEditorを使ってコードを比較しエラーを探すことのできるアプリです'
+            content='コードを比較し差分(diff)を確認することで構文エラーを探すことのできるアプリです。リンクの共有で共同編集も可能なのでコードを相手に送る手間も省けます。'
           />
           <meta property='og:title' content='Diff_Sync_Code' />
           <meta
             property='og:description'
-            content='MonacoEditorのDiffEditorを使ってコードを比較しエラーを探すことのできるアプリです'
+            content='コードを比較し差分(diff)を確認することで構文エラーを探すことのできるアプリです。リンクの共有で共同編集も可能なのでコードを相手に送る手間も省けます。'
           />
           <meta property='og:type' content='website' />
           <meta property='og:url' content='https://diff-sync-code.up.railway.app/' />
