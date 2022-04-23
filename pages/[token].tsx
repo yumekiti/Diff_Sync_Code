@@ -29,7 +29,7 @@ const Home: NextPage = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const newToken = Math.random().toString(32).substring(2);
 
-  const debounce = (fn: Function, bufferInterval = 1500) => {
+  const debounce = (fn: Function, bufferInterval = 1000) => {
     return () => {
       clearTimeout(timerId);
       let timer = setTimeout(() => {
