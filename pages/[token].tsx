@@ -79,7 +79,7 @@ const Home: NextPage = () => {
           visible={visible}
           onClick={(bool?: boolean) => {
             if (bool) socket.emit('change', values);
-            else router.push('/' + newToken);
+            else window.location.href = '/' + newToken;
             setVisible(false);
           }}
         />
