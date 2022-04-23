@@ -7,7 +7,7 @@ const Token: NextPage = () => {
   useEffect(() => {
     history.replaceState(null, '', null);
     window.addEventListener('popstate', (e) => {
-      history.go(-1)
+      history.go(-1);
     });
 
     Router.push({
