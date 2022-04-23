@@ -65,10 +65,6 @@ const Home: NextPage = () => {
         setUpdate(true);
       });
     }
-    history.replaceState(null, '', null);
-    window.addEventListener('popstate', (e) => {
-      history.go(-1)
-    });
   }, [token]);
 
   return (
