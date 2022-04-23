@@ -27,8 +27,9 @@ const Home: NextPage = () => {
   const [timerId, setTimerId] = useState<any>(null);
   const [update, setUpdate] = useState<boolean>(true);
   const [visible, setVisible] = useState<boolean>(false);
+  const newToken = Math.random().toString(32).substring(2);
 
-  const debounce = (fn: Function, bufferInterval = 2000) => {
+  const debounce = (fn: Function, bufferInterval = 1500) => {
     return () => {
       clearTimeout(timerId);
       let timer = setTimeout(() => {
@@ -78,7 +79,7 @@ const Home: NextPage = () => {
           visible={visible}
           onClick={(bool?: boolean) => {
             if (bool) socket.emit('change', values);
-            else router.push('/');
+            else router.push('/' + newToken);
             setVisible(false);
           }}
         />
