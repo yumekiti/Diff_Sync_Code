@@ -15,6 +15,9 @@ services:
         npm install &&
         npm run dev
       "
+    environment:
+      - NEXT_PUBLIC_GA_ID=${NEXT_PUBLIC_GA_ID}
+
   tests:
     image: node:17-alpine
     container_name: 'jest'
@@ -26,3 +29,5 @@ services:
         npm install &&
         npm run dev
       "
+    environment:
+      - NEXT_PUBLIC_GA_ID=${NEXT_PUBLIC_GA_ID}
