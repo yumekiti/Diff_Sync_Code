@@ -20,6 +20,7 @@
     "@monaco-editor/react": "^4.4.1",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
+    "@types/gtag.js": "^0.0.10",
     "@types/node": "17.0.23",
     "@types/react": "17.0.43",
     "@types/react-dom": "17.0.14",
