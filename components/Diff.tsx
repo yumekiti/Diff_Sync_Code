@@ -8,7 +8,7 @@ type Props = {
 
 const Diff = ({ rcode, lcode, lang }: Props) => {
   return (
-    <DiffEditor theme='vs-dark' height='30vh' language={lang} original={lcode} modified={rcode} />
+    <DiffEditor theme='vs-dark' height='80vh' language={lang} original={lcode} modified={rcode} />
   );
 };
 
