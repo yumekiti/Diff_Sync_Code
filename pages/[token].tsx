@@ -39,6 +39,24 @@ const Home: NextPage = () => {
     };
   };
 
+  const handleClick = (value: any, type: string) => {
+    if (type === 'left') {
+      setValues((values: object) => ({ ...values, lcode: value }));
+      if (update) {
+        debounce(() => {
+          socket.emit('change', { ...values, lcode: value });
+        })();
+      }
+    } else if (type === 'right') {
+      setValues((values: object) => ({ ...values, rcode: value }));
+      if (update) {
+        debounce(() => {
+          socket.emit('change', { ...values, rcode: value });
+        })();
+      }
+    }
+  };
+
   useEffect(() => {
     if (token) {
       setValues((values: object) => ({ ...values, token: token }));
@@ -98,15 +116,7 @@ const Home: NextPage = () => {
             height='50vh'
             language={values.lang}
             value={values.lcode}
-            onChange={(value: any) => {
-              setValues((values: object) => ({ ...values, lcode: value }));
-              if (update) {
-                debounce(() => {
-                  socket.emit('change', { ...values, lcode: value });
-                  console.log('event');
-                })();
-              }
-            }}
+            onChange={(value: any) => handleClick(value, 'left')}
           />
         </Grid>
         <Grid xs={12} sm={6}>
@@ -115,14 +125,7 @@ const Home: NextPage = () => {
             height='50vh'
             language={values.lang}
             value={values.rcode}
-            onChange={(value: any) => {
-              setValues((values: object) => ({ ...values, rcode: value }));
-              if (update) {
-                debounce(() => {
-                  socket.emit('change', { ...values, rcode: value });
-                })();
-              }
-            }}
+            onChange={(value: any) => handleClick(value, 'right')}
           />
         </Grid>
         <Grid xs={12}>
