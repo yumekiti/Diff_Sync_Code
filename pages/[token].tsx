@@ -29,6 +29,7 @@ const Home: NextPage = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const newToken = Math.random().toString(32).substring(2);
 
+  // 入力してから１秒後に送信
   const debounce = (fn: Function, bufferInterval = 1000) => {
     return () => {
       clearTimeout(timerId);
@@ -39,7 +40,8 @@ const Home: NextPage = () => {
     };
   };
 
-  const handleClick = (value: any, type: string) => {
+  // 値が変更されたときの処理
+  const handleChange = (value: any, type: string) => {
     if (type === 'left') {
       setValues((values: object) => ({ ...values, lcode: value }));
       if (update) {
@@ -58,32 +60,31 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    if (token) {
-      setValues((values: object) => ({ ...values, token: token }));
-      fetch('/api/socket');
-      socket = io();
+    if (!token) return;
+    setValues((values: object) => ({ ...values, token: token }));
 
-      socket.on('connect', () => {
-        console.log('connected');
+    // socket.ioの接続
+    fetch('/api/socket');
+    socket = io();
+
+    socket.on('connect', () => {
+      console.log('connected');
+      setUpdate(false);
+      socket.emit('join', token);
+    });
+
+    socket.on('update', (value: any) => {
+      if (value.token == token) {
         setUpdate(false);
-        socket.emit('join', token);
-      });
-
-      socket.on('update', (value: any) => {
-        if (value.token == token) {
-          setUpdate(false);
-          setValues(value);
-          setUpdate(true);
-        }
-      });
-
-      socket.on('welcome', (value: any) => {
-        if (value == token) {
-          setVisible(true);
-        }
+        setValues(value);
         setUpdate(true);
-      });
-    }
+      }
+    });
+
+    socket.on('welcome', (value: any) => {
+      if (value == token) setVisible(true);
+      setUpdate(true);
+    });
   }, [token]);
 
   return (
@@ -116,7 +117,7 @@ const Home: NextPage = () => {
             height='50vh'
             language={values.lang}
             value={values.lcode}
-            onChange={(value: any) => handleClick(value, 'left')}
+            onChange={(value: any) => handleChange(value, 'left')}
           />
         </Grid>
         <Grid xs={12} sm={6}>
@@ -125,7 +126,7 @@ const Home: NextPage = () => {
             height='50vh'
             language={values.lang}
             value={values.rcode}
-            onChange={(value: any) => handleClick(value, 'right')}
+            onChange={(value: any) => handleChange(value, 'right')}
           />
         </Grid>
         <Grid xs={12}>
