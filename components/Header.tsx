@@ -2,11 +2,8 @@ import styles from '../styles/Header.module.css';
 import { Image, Spacer } from '@nextui-org/react';
 
 const Header = () => {
-  const returnTop = () => {
-    window.scrollTo({
-      top: 880,
-      behavior: 'smooth',
-    });
+  const demo = () => {
+    window.open('https://user-images.githubusercontent.com/68057090/201527204-3c1b8756-4e50-4baa-b443-3c1213e8a8fa.mp4', '_blank');
   };
 
   return (
@@ -39,7 +36,7 @@ const Header = () => {
             className={styles.icon}
             src='./question.png'
             alt='down'
-            onClick={returnTop}
+            onClick={demo}
             width={42}
             height={42}
           />
