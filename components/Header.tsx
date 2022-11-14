@@ -3,7 +3,7 @@ import { Image, Spacer } from '@nextui-org/react';
 
 const Header = () => {
   const demo = () => {
-    window.open('https://user-images.githubusercontent.com/68057090/201527204-3c1b8756-4e50-4baa-b443-3c1213e8a8fa.mp4', '_blank');
+    window.open('https://github.com/yumekiti/Diff_Sync_Code#demo', '_blank');
   };
 
   return (
