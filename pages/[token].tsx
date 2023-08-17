@@ -65,7 +65,9 @@ const Home: NextPage = () => {
 
     // socket.ioの接続
     fetch('/api/socket');
-    socket = io();
+    socket = io({
+      transports: ['websocket'],
+    });
 
     socket.on('connect', () => {
       console.log('connected');
