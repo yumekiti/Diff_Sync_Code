@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diffsynccode
+  namespace: diffsynccode
+spec:
+  selector:
+    matchLabels:
+      app: diffsynccode
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: diffsynccode
+    spec:
+      containers:
+      - name: diffsynccode
+        image: yumekiti/diffsynccode:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: diffsynccode
+  namespace: diffsynccode
+spec:
+  selector:
+    app: diffsynccode
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: NodePort
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: diffsynccode
+  namespace: diffsynccode
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: diff.yumekiti.net
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: diffsynccode
+            port:
+              number: 80
